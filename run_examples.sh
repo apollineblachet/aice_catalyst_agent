@@ -6,5 +6,5 @@ python -m scripts.run_agent --input examples/inputs/low_specificity_prompt.md --
 python -m scripts.mlflow_langchain_flavor --mode log
 
 python -m scripts.mlflow_langchain_flavor --mode infer \
-  --model-uri runs:/a3a64609986a42b5b7590fb7b2b8e3ce/model \
+  --model-uri runs:/66704930d6e84e99a826f731d83695e2/model \
   --text "Project: Minimal Customer Feedback Inbox ..."

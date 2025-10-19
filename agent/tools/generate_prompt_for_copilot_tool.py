@@ -76,8 +76,38 @@ def _wrap(s: str) -> str:
 
 def generate_prompt_for_copilot_tool(raw: GeneratePromptInput) -> GeneratePromptOutput:
     """
-    Turn a task + acceptance criteria into a concise, high-signal prompt for GitHub Copilot or Claude.
-    Deterministic, sectioned, and guardrailed to keep signal high.
+    Turn a task and its acceptance criteria into a concise, high-signal prompt for GitHub Copilot or Claude.
+
+    Input:
+        Provide the task data wrapped in a "raw" object:
+        {
+            "raw": {
+                "task_title": "Implement login API",
+                "task_description": "Create a secure FastAPI endpoint for user login.",
+                "acceptance_criteria": [
+                    "Given valid credentials, when the user submits, then a JWT is returned.",
+                    "Given invalid credentials, when submitted, then a 401 is returned."
+                ],
+                "constraints": ["Use existing user model.", "Follow REST conventions."],
+                "tech_stack": "Python (FastAPI), React",
+                "repo_context": null,
+                "files_to_edit": null,
+                "done_definition": "All acceptance criteria are satisfied."
+            }
+        }
+
+    Behavior:
+        - Deterministically formats sections: Task, Criteria, Constraints, and Tech Stack.
+        - Removes noise and focuses on actionable, code-relevant signal.
+        - Produces a final prompt string suitable for use in GitHub Copilot or Claude.
+
+    Example output:
+        "Task: Implement login API
+        Description: Create a secure FastAPI endpoint for user login.
+        Acceptance Criteria:
+        1. ...
+        Constraints: ...
+        Tech Stack: Python (FastAPI), React"
     """
     sections: Dict[str, str] = {}
 

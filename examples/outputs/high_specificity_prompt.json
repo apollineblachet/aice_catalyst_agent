@@ -1,5 +1,5 @@
 {
-  "objective": "Develop a web-based tool for automatically summarizing recorded team meetings.",
+  "objective": "Develop a web-based feature that automatically summarizes recorded team meetings.",
   "assumptions": [
     "Users have access to a stable internet connection.",
     "Users are familiar with basic file upload processes."
@@ -11,64 +11,130 @@
   ],
   "phases": [
     {
-      "name": "Planning",
-      "goal": "Establish project structure and requirements.",
+      "name": "Planning and Design",
+      "goal": "Establish the foundational requirements and design for the tool.",
       "tasks": [
         {
-          "id": "T-1",
-          "title": "Set up project structure for FastAPI backend",
-          "description": "Initialize the FastAPI project with necessary configurations.",
+          "id": "T1",
+          "title": "Clarify scope & constraints",
+          "description": "Confirm must-haves, non-goals, and edge cases; note unknowns & risks.",
           "estimate_days": 1.0,
           "complexity": "S",
           "dependencies": [],
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the development team",
-              "when": "they initialize the FastAPI project",
-              "then": "the project structure is correctly set up with necessary configurations."
+              "given": "The project stakeholders are available.",
+              "when": "The requirements are discussed.",
+              "then": "All must-haves and non-goals are documented."
             }
           ],
-          "prompt_for_code_assistant": "Initialize a FastAPI project with basic configurations.",
+          "test_suite": {
+            "unit_tests": [],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Document the project scope and constraints based on stakeholder discussions.",
           "deliverables": [
-            "FastAPI project structure"
+            "Documented project scope",
+            "List of constraints"
           ],
           "risks": []
         },
         {
-          "id": "T-2",
-          "title": "Set up project structure for React frontend",
-          "description": "Initialize the React project with necessary configurations.",
+          "id": "T2",
+          "title": "Data model / schema sketch",
+          "description": "Identify entities, fields, and minimal schema changes needed.",
           "estimate_days": 1.0,
           "complexity": "S",
           "dependencies": [
-            "T-1"
+            "T1"
           ],
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the development team",
-              "when": "they initialize the React project",
-              "then": "the project structure is correctly set up with necessary configurations."
+              "given": "The data model is drafted.",
+              "when": "The model is reviewed by the team.",
+              "then": "All necessary entities and relationships are confirmed."
             }
           ],
-          "prompt_for_code_assistant": "Initialize a React project with basic configurations.",
+          "test_suite": {
+            "unit_tests": [],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Create a draft of the data model for the meeting summarization tool.",
           "deliverables": [
-            "React project structure"
+            "Draft data model",
+            "Schema changes"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T3",
+          "title": "Backend API surface",
+          "description": "Define endpoints, request/response contracts, and validation rules.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T2"
+          ],
+          "priority": "P0",
+          "acceptance_criteria": [
+            {
+              "given": "The API surface is defined.",
+              "when": "The API documentation is reviewed.",
+              "then": "All endpoints and contracts are validated."
+            }
+          ],
+          "test_suite": {
+            "unit_tests": [],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Outline the API surface for the meeting summarization tool.",
+          "deliverables": [
+            "API documentation",
+            "Endpoint definitions"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T4",
+          "title": "Frontend UI skeleton",
+          "description": "Create minimal UI flow and states (loading, success, error).",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T3"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "The UI skeleton is created.",
+              "when": "The UI is tested.",
+              "then": "All states are functional and responsive."
+            }
+          ],
+          "test_suite": {
+            "unit_tests": [],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Build a skeleton UI for the meeting summarization tool.",
+          "deliverables": [
+            "UI skeleton",
+            "State management"
           ],
           "risks": []
         }
       ],
-      "estimate_days": 2.0,
+      "estimate_days": 4.0,
       "risks": []
     },
     {
-      "name": "Development",
-      "goal": "Implement core functionalities of the summarization tool.",
+      "name": "Implementation",
+      "goal": "Develop the core functionalities of the tool.",
       "tasks": [
         {
-          "id": "T-3",
-          "title": "Implement file upload functionality",
+          "id": "T5",
+          "title": "Implement file upload feature",
           "description": "Create a UI form for users to upload audio/video files.",
           "estimate_days": 2.0,
           "complexity": "M",
@@ -76,102 +142,202 @@
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user is on the upload screen with a valid file selected",
-              "when": "they start the upload",
-              "then": "the system stores the file, returns a success confirmation, and shows the new entry in the list."
+              "given": "A user is on the upload screen.",
+              "when": "They upload a valid file.",
+              "then": "The file is successfully uploaded."
+            },
+            {
+              "given": "A user uploads an invalid file.",
+              "when": "They submit the form.",
+              "then": "An error message is displayed."
             }
           ],
-          "prompt_for_code_assistant": "Create a file upload form in React.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "test_file_upload_success",
+                "description": "Test that valid file uploads succeed."
+              },
+              {
+                "name": "test_file_upload_error",
+                "description": "Test that invalid file uploads fail."
+              }
+            ],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Create a file upload component for the meeting summarization tool.",
           "deliverables": [
-            "File upload UI"
+            "File upload UI",
+            "File validation logic"
           ],
           "risks": []
         },
         {
-          "id": "T-4",
+          "id": "T6",
           "title": "Integrate transcription API",
           "description": "Connect to OpenAI Whisper or AssemblyAI for transcribing uploaded files.",
           "estimate_days": 2.0,
           "complexity": "M",
-          "dependencies": [],
+          "dependencies": [
+            "T5"
+          ],
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "a valid audio/video file is uploaded",
-              "when": "the transcription API is called",
-              "then": "the system returns the transcribed text."
+              "given": "A file is uploaded.",
+              "when": "The transcription API is called.",
+              "then": "The transcription is returned successfully."
+            },
+            {
+              "given": "The API call fails.",
+              "when": "The user checks the status.",
+              "then": "An error message is displayed."
             }
           ],
-          "prompt_for_code_assistant": "Integrate OpenAI Whisper or AssemblyAI API for transcription.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "test_transcription_api_success",
+                "description": "Test that the transcription API returns a valid response."
+              },
+              {
+                "name": "test_transcription_api_error",
+                "description": "Test that errors from the API are handled correctly."
+              }
+            ],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Integrate the transcription API into the backend.",
           "deliverables": [
-            "Transcription API integration"
+            "Transcription API integration",
+            "Error handling logic"
           ],
           "risks": []
         },
         {
-          "id": "T-5",
-          "title": "Implement summary generation logic",
-          "description": "Develop logic to generate summaries from transcriptions.",
+          "id": "T7",
+          "title": "Generate summaries from transcripts",
+          "description": "Develop logic to summarize transcripts highlighting key decisions and action items.",
           "estimate_days": 2.0,
           "complexity": "M",
           "dependencies": [
-            "T-4"
+            "T6"
           ],
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the transcribed text is available",
-              "when": "the summary generation logic is executed",
-              "then": "the system returns a concise summary highlighting key decisions and action items."
+              "given": "A transcript is available.",
+              "when": "The summarization logic is executed.",
+              "then": "A summary is generated successfully."
+            },
+            {
+              "given": "The summarization logic fails.",
+              "when": "The user checks the status.",
+              "then": "An error message is displayed."
             }
           ],
-          "prompt_for_code_assistant": "Write logic to summarize transcribed text.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "test_summary_generation_success",
+                "description": "Test that valid transcripts produce summaries."
+              },
+              {
+                "name": "test_summary_generation_error",
+                "description": "Test that errors in summarization are handled."
+              }
+            ],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Implement the summarization logic for transcripts.",
           "deliverables": [
-            "Summary generation logic"
+            "Summary generation logic",
+            "Error handling for summaries"
           ],
           "risks": []
         },
         {
-          "id": "T-6",
-          "title": "Create dashboard to display transcripts and summaries",
-          "description": "Build a dashboard to show the transcribed text and generated summaries.",
+          "id": "T8",
+          "title": "Create dashboard for viewing transcripts and summaries",
+          "description": "Build a dashboard to display the transcript and summary to users.",
           "estimate_days": 2.0,
           "complexity": "M",
-          "dependencies": [],
+          "dependencies": [
+            "T5",
+            "T7"
+          ],
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user accesses the dashboard",
-              "when": "the transcripts and summaries are available",
-              "then": "the system displays them correctly."
+              "given": "A user is on the dashboard.",
+              "when": "They view a transcript and summary.",
+              "then": "Both are displayed correctly."
+            },
+            {
+              "given": "The data is not available.",
+              "when": "The user checks the dashboard.",
+              "then": "An appropriate message is displayed."
             }
           ],
-          "prompt_for_code_assistant": "Create a dashboard in React to display transcripts and summaries.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "test_dashboard_display",
+                "description": "Test that the dashboard displays transcripts and summaries."
+              },
+              {
+                "name": "test_dashboard_no_data",
+                "description": "Test that the dashboard handles no data gracefully."
+              }
+            ],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Build the dashboard UI for displaying transcripts and summaries.",
           "deliverables": [
-            "Dashboard UI"
+            "Dashboard UI",
+            "Data fetching logic"
           ],
           "risks": []
         },
         {
-          "id": "T-7",
-          "title": "Implement download functionality for transcripts and summaries",
+          "id": "T9",
+          "title": "Implement download functionality",
           "description": "Allow users to download transcripts and summaries as text or PDF.",
           "estimate_days": 1.0,
           "complexity": "S",
           "dependencies": [
-            "T-6"
+            "T8"
           ],
           "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is viewing a transcript or summary",
-              "when": "they choose to download it",
-              "then": "the system provides the file in the selected format."
+              "given": "A user is on the dashboard.",
+              "when": "They choose to download a transcript or summary.",
+              "then": "The file is downloaded successfully."
+            },
+            {
+              "given": "The download fails.",
+              "when": "The user checks the status.",
+              "then": "An error message is displayed."
             }
           ],
-          "prompt_for_code_assistant": "Implement download functionality for text and PDF formats.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "test_download_success",
+                "description": "Test that downloads succeed for valid files."
+              },
+              {
+                "name": "test_download_error",
+                "description": "Test that download errors are handled."
+              }
+            ],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Implement the download functionality for transcripts and summaries.",
           "deliverables": [
-            "Download functionality"
+            "Download functionality",
+            "Error handling for downloads"
           ],
           "risks": []
         }
@@ -180,90 +346,101 @@
       "risks": []
     },
     {
-      "name": "Testing",
-      "goal": "Ensure the application meets performance and functional requirements.",
+      "name": "Testing and Validation",
+      "goal": "Ensure the tool functions correctly and meets quality standards.",
       "tasks": [
         {
-          "id": "T-8",
-          "title": "Conduct performance testing",
-          "description": "Test the application for transcription accuracy and performance under load.",
+          "id": "T10",
+          "title": "Functional tests (happy paths)",
+          "description": "Automate the main success scenarios end-to-end or via API.",
           "estimate_days": 2.0,
           "complexity": "M",
           "dependencies": [
-            "T-5"
+            "T5",
+            "T6",
+            "T7",
+            "T8",
+            "T9"
           ],
           "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the application is under load",
-              "when": "multiple users upload files concurrently",
-              "then": "the system maintains performance without degradation."
+              "given": "All features are implemented.",
+              "when": "The functional tests are run.",
+              "then": "All tests pass successfully."
             }
           ],
-          "prompt_for_code_assistant": "Set up performance testing for the application.",
+          "test_suite": {
+            "unit_tests": [],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Create functional tests for the meeting summarization tool.",
           "deliverables": [
-            "Performance testing results"
+            "Automated functional tests"
           ],
           "risks": []
         },
         {
-          "id": "T-9",
-          "title": "Implement user authentication (if required)",
-          "description": "Set up user authentication if needed.",
-          "estimate_days": 1.0,
-          "complexity": "S",
-          "dependencies": [],
+          "id": "T11",
+          "title": "Error & edge-case tests",
+          "description": "Cover invalid inputs, timeouts, and permission errors.",
+          "estimate_days": 2.0,
+          "complexity": "M",
+          "dependencies": [
+            "T10"
+          ],
           "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user accesses a protected resource",
-              "when": "they are not authenticated",
-              "then": "the system prompts for authentication."
+              "given": "All features are implemented.",
+              "when": "The error tests are run.",
+              "then": "All tests pass successfully."
             }
           ],
-          "prompt_for_code_assistant": "Implement user authentication in FastAPI.",
+          "test_suite": {
+            "unit_tests": [],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Create error and edge-case tests for the meeting summarization tool.",
           "deliverables": [
-            "User authentication setup"
+            "Automated error tests"
           ],
           "risks": []
-        }
-      ],
-      "estimate_days": 3.0,
-      "risks": []
-    },
-    {
-      "name": "Deployment",
-      "goal": "Deploy the application to a cloud service.",
-      "tasks": [
+        },
         {
-          "id": "T-10",
-          "title": "Deploy application",
-          "description": "Deploy the application to a cloud service.",
+          "id": "T12",
+          "title": "Docs & handoff",
+          "description": "Write a concise README with setup, env vars, run & test commands.",
           "estimate_days": 1.0,
           "complexity": "S",
           "dependencies": [
-            "T-8"
+            "T11"
           ],
-          "priority": "P0",
+          "priority": "P2",
           "acceptance_criteria": [
             {
-              "given": "the application is deployed",
-              "when": "users access the application",
-              "then": "the system is fully functional and accessible."
+              "given": "The documentation is written.",
+              "when": "The README is reviewed.",
+              "then": "All necessary information is included."
             }
           ],
-          "prompt_for_code_assistant": "Deploy the FastAPI and React application to a cloud service.",
+          "test_suite": {
+            "unit_tests": [],
+            "integration_tests": []
+          },
+          "prompt_for_code_assistant": "Draft a README for the meeting summarization tool.",
           "deliverables": [
-            "Deployed application"
+            "README file",
+            "Setup instructions"
           ],
           "risks": []
         }
       ],
-      "estimate_days": 1.0,
+      "estimate_days": 5.0,
       "risks": []
     }
   ],
-  "total_estimate_days": 15.0,
+  "total_estimate_days": 18.0,
   "risks_and_mitigations": [
     {
       "risk": "External API instability or rate limits",
@@ -287,15 +464,8 @@
     }
   ],
   "deliverables": [
-    "FastAPI project structure",
-    "React project structure",
-    "File upload UI",
-    "Transcription API integration",
-    "Summary generation logic",
-    "Dashboard UI",
-    "Download functionality",
-    "Performance testing results",
-    "User authentication setup",
-    "Deployed application"
+    "Meeting summarization tool",
+    "Documentation",
+    "Automated tests"
   ]
 }

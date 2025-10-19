@@ -7,7 +7,7 @@ from .schemas import DevelopmentPlan
 from .tools.parse_requirements_tool import parse_requirements_tool
 from .tools.estimate_complexity_tool import estimate_complexity_tool
 from .tools.generate_tasks_tool import generate_tasks_tool
-from .tools.create_acceptance_criteria_tool import create_acceptance_criteria_tool
+from .tools.create_acceptance_criteria_tool_unittest import create_acceptance_criteria_tool
 from .tools.generate_prompt_for_copilot_tool import generate_prompt_for_copilot_tool
 from .tools.detect_dependencies_tool import detect_dependencies_tool
 

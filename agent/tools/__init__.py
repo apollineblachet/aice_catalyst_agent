@@ -4,3 +4,4 @@ from .generate_tasks_tool import generate_tasks_tool
 from .create_acceptance_criteria_tool import create_acceptance_criteria_tool
 from .generate_prompt_for_copilot_tool import generate_prompt_for_copilot_tool
 from .detect_dependencies_tool import detect_dependencies_tool
+from .create_acceptance_criteria_tool_unittest import create_acceptance_criteria_tool

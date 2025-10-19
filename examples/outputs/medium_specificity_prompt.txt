@@ -1,4 +1,4 @@
-Here's a structured development plan for the Meeting Summarization Tool based on the provided requirements:
+Here's a structured development plan for the meeting summarization tool based on the provided requirements:
 
 ```json
 {
@@ -11,19 +11,20 @@ Here's a structured development plan for the Meeting Summarization Tool based on
           "title": "Clarify scope & constraints",
           "description": "Confirm must-haves, non-goals, and edge cases; note unknowns & risks.",
           "acceptance_criteria": [
-            "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-            "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects."
+            "Given a user is on the relevant screen or context, when they clarify scope & constraints with valid inputs, then the expected result is shown.",
+            "Given a user attempts to clarify scope & constraints, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         },
         {
           "id": "T2",
           "title": "Data model / schema sketch",
           "description": "Identify entities, fields, and minimal schema changes needed.",
           "acceptance_criteria": [
-            "Given the user is on the form with all required fields filled correctly, when they click Submit, then the system persists the data and shows a visible success state without page reload."
+            "Given a user is on the relevant screen or context, when they data model / schema sketch with valid inputs, then the expected result is shown.",
+            "Given a user attempts to data model / schema sketch, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         }
       ]
     },
@@ -35,45 +36,50 @@ Here's a structured development plan for the Meeting Summarization Tool based on
           "title": "Backend API surface",
           "description": "Define endpoints, request/response contracts, and validation rules.",
           "acceptance_criteria": [
-            "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation."
+            "Given a user is on the relevant screen or context, when they backend API surface with valid inputs, then the API responds with 2xx and a correct payload.",
+            "Given a user attempts to backend API surface, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         },
         {
           "id": "T4",
           "title": "Frontend UI skeleton",
           "description": "Create minimal UI flow and states (loading, success, error).",
           "acceptance_criteria": [
-            "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation."
+            "Given a user is on the relevant screen or context, when they frontend UI skeleton with valid inputs, then the UI reflects the change with a success indicator.",
+            "Given a user attempts to frontend UI skeleton, when the input is missing required field or invalid format, then an accessible inline error is displayed and no changes are saved."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         },
         {
           "id": "T5",
           "title": "File handling & validation",
           "description": "Accept and validate allowed file types, size limits, and safe temp storage.",
           "acceptance_criteria": [
-            "Given the user is on the upload screen with a valid file selected, when they start the upload, then the system stores the file, returns a success confirmation, and shows the new entry in the list."
+            "Given a user is on the relevant screen or context, when they file handling & validation with valid inputs, then the expected result is shown.",
+            "Given a user attempts to file handling & validation, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         },
         {
           "id": "T6",
           "title": "Integrations & external services",
           "description": "Wire any external APIs, keys, and error handling paths.",
           "acceptance_criteria": [
-            "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation."
+            "Given a user is on the relevant screen or context, when they integrations & external services with valid inputs, then the API responds with 2xx and a correct payload.",
+            "Given a user attempts to integrations & external services, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         },
         {
           "id": "T7",
           "title": "Persistence layer",
           "description": "Implement DB access patterns and migrations if any.",
           "acceptance_criteria": [
-            "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation."
+            "Given a user is on the relevant screen or context, when they persistence layer with valid inputs, then the data is persisted and can be retrieved.",
+            "Given a user attempts to persistence layer, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         }
       ]
     },
@@ -85,18 +91,20 @@ Here's a structured development plan for the Meeting Summarization Tool based on
           "title": "Functional tests (happy paths)",
           "description": "Automate the main success scenarios end-to-end or via API.",
           "acceptance_criteria": [
-            "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation."
+            "Given a user is on the relevant screen or context, when they functional tests (happy paths) with valid inputs, then the API responds with 2xx and a correct payload.",
+            "Given a user attempts to functional tests (happy paths), when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         },
         {
           "id": "T9",
           "title": "Error & edge-case tests",
           "description": "Cover invalid inputs, timeouts, and permission errors.",
           "acceptance_criteria": [
-            "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects."
+            "Given a logged-in user is on the relevant screen or context, when they error & edge-case tests with valid inputs, then the expected result is shown.",
+            "Given a user attempts to error & edge-case tests, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         }
       ]
     },
@@ -108,9 +116,10 @@ Here's a structured development plan for the Meeting Summarization Tool based on
           "title": "Docs & handoff",
           "description": "Write a concise README with setup, env vars, run & test commands.",
           "acceptance_criteria": [
-            "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation."
+            "Given a user is on the relevant screen or context, when they docs & handoff with valid inputs, then the expected result is shown.",
+            "Given a user attempts to docs & handoff, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
           ],
-          "estimate_days": 1
+          "estimated_days": 1
         }
       ]
     }
@@ -119,9 +128,9 @@ Here's a structured development plan for the Meeting Summarization Tool based on
 }
 ```
 
-### Summary of the Plan:
+### Summary
 - **Total Estimated Days**: 10
 - **Phases**: Planning, Development, Testing, Documentation
-- **Key Features**: User uploads audio/video, transcription, summary generation, download options, and a user-friendly interface.
+- **Key Tasks**: Clarifying scope, designing data models, developing backend and frontend, integrating services, testing, and documentation.
 
-This plan provides a clear roadmap for developing the Meeting Summarization Tool, ensuring that all aspects of the project are covered from planning to documentation.
+This plan provides a clear roadmap for developing the meeting summarization tool, ensuring all critical aspects are covered.

@@ -1,5 +1,5 @@
 {
-  "objective": "Develop a meeting recording summary tool that transcribes conversations and highlights important points or next steps.",
+  "objective": "Develop a tool that transcribes meeting recordings and summarizes key points and next steps.",
   "assumptions": [
     "Users have access to a web browser.",
     "Users can upload audio files in supported formats."
@@ -13,7 +13,7 @@
   "phases": [
     {
       "name": "Planning",
-      "goal": "Define project scope and requirements.",
+      "goal": "Define the scope and requirements for the tool.",
       "tasks": [
         {
           "id": "T1",
@@ -25,46 +25,46 @@
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they clarify scope & constraints with valid inputs",
+              "then": "the expected result is shown"
             },
             {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user attempts to clarify scope & constraints",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Clarify project scope and constraints for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nClarify scope & constraints for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they clarify scope & constraints with valid inputs\nThen the expected result is shown\n- Given a user attempts to clarify scope & constraints\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
             "Scope document",
-            "Risk assessment"
+            "Risk assessment report"
           ],
           "risks": [
             {
               "risk": "Ambiguities/assumptions",
-              "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders."
+              "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
             }
           ]
-        }
-      ],
-      "estimate_days": 1.0,
-      "risks": []
-    },
-    {
-      "name": "Design",
-      "goal": "Create the architecture and design for the application.",
-      "tasks": [
+        },
         {
           "id": "T2",
           "title": "Data model / schema sketch",
@@ -77,28 +77,63 @@
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user is on the form with all required fields filled correctly",
-              "when": "they click Submit",
-              "then": "the system persists the data and shows a visible success state without page reload"
+              "given": "a user is on the relevant screen or context",
+              "when": "they data model / schema sketch with valid inputs",
+              "then": "the expected result is shown"
             },
             {
-              "given": "a required field is empty or exceeds its max length",
-              "when": "the user attempts to submit",
-              "then": "the system blocks submission and shows inline, accessible error messages describing what to fix"
+              "given": "a user attempts to data model / schema sketch",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Design the data model and schema for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nCreate a data model/schema for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they data model / schema sketch with valid inputs\nThen the expected result is shown\n- Given a user attempts to data model / schema sketch\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "Data model diagram",
-            "Schema definition"
+            "Data model documentation"
           ],
-          "risks": []
-        },
+          "risks": [
+            {
+              "risk": "Ambiguities/assumptions",
+              "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
+            }
+          ]
+        }
+      ],
+      "estimate_days": 2.0,
+      "risks": [
+        {
+          "risk": "Ambiguities/assumptions",
+          "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
+        }
+      ]
+    },
+    {
+      "name": "Development",
+      "goal": "Build the backend and frontend components of the tool.",
+      "tasks": [
         {
           "id": "T3",
           "title": "Backend API surface",
           "description": "Define endpoints, request/response contracts, and validation rules.",
-          "estimate_days": 1.0,
+          "estimate_days": 2.0,
           "complexity": "M",
           "dependencies": [
             "T2"
@@ -106,16 +141,44 @@
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they backend API surface with valid inputs",
+              "then": "the API responds with 2xx and a correct payload"
+            },
+            {
+              "given": "a user attempts to backend API surface",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Define the backend API surface for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "api_contract_and_status_codes",
+                "description": "Endpoint returns expected 2xx/4xx and OpenAPI contract fields."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nDefine the backend API surface for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they backend API surface with valid inputs\nThen the API responds with 2xx and a correct payload\n- Given a user attempts to backend API surface\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
             "API documentation"
           ],
-          "risks": []
+          "risks": [
+            {
+              "risk": "External API instability or rate limits",
+              "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests"
+            }
+          ]
         },
         {
           "id": "T4",
@@ -129,75 +192,144 @@
           "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they frontend UI skeleton with valid inputs",
+              "then": "the UI reflects the change with a success indicator"
+            },
+            {
+              "given": "a user attempts to frontend UI skeleton",
+              "when": "the input is missing required field or invalid format",
+              "then": "an accessible inline error is displayed and no changes are saved"
             }
           ],
-          "prompt_for_code_assistant": "Create the frontend UI skeleton for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "ui_end_to_end_happy_path",
+                "description": "From user action to persisted state and refreshed UI."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nCreate the frontend UI skeleton for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they frontend UI skeleton with valid inputs\nThen the UI reflects the change with a success indicator\n- Given a user attempts to frontend UI skeleton\nWhen the input is missing required field or invalid format\nThen an accessible inline error is displayed and no changes are saved.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "UI mockups",
-            "Frontend code"
+            "UI mockups"
           ],
-          "risks": []
-        }
-      ],
-      "estimate_days": 3.0,
-      "risks": []
-    },
-    {
-      "name": "Development",
-      "goal": "Implement the application features.",
-      "tasks": [
+          "risks": [
+            {
+              "risk": "Concurrency/hotspot contention",
+              "mitigation": "Idempotency, locks or queues, load tests"
+            }
+          ]
+        },
         {
           "id": "T5",
           "title": "File handling & validation",
           "description": "Accept and validate allowed file types, size limits, and safe temp storage.",
           "estimate_days": 1.0,
-          "complexity": "M",
+          "complexity": "S",
           "dependencies": [
             "T4"
           ],
           "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the upload screen with a valid file selected",
-              "when": "they start the upload",
-              "then": "the system stores the file, returns a success confirmation, and shows the new entry in the list"
+              "given": "a user is on the relevant screen or context",
+              "when": "they file handling & validation with valid inputs",
+              "then": "the expected result is shown"
+            },
+            {
+              "given": "a user attempts to file handling & validation",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Implement file handling and validation for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nImplement file handling and validation for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they file handling & validation with valid inputs\nThen the expected result is shown\n- Given a user attempts to file handling & validation\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "File upload functionality"
+            "File handling logic"
           ],
-          "risks": []
+          "risks": [
+            {
+              "risk": "Large file handling / storage costs",
+              "mitigation": "Set size limits, stream uploads, virus scan, lifecycle policies"
+            }
+          ]
         },
         {
           "id": "T6",
           "title": "Integrations & external services",
           "description": "Wire any external APIs, keys, and error handling paths.",
           "estimate_days": 1.0,
-          "complexity": "L",
+          "complexity": "M",
           "dependencies": [
             "T5"
           ],
           "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they integrations & external services with valid inputs",
+              "then": "the API responds with 2xx and a correct payload"
+            },
+            {
+              "given": "a user attempts to integrations & external services",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Integrate external services for transcription and summarization.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "api_contract_and_status_codes",
+                "description": "Endpoint returns expected 2xx/4xx and OpenAPI contract fields."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nIntegrate external services for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they integrations & external services with valid inputs\nThen the API responds with 2xx and a correct payload\n- Given a user attempts to integrations & external services\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "Integration with transcription service",
-            "Integration with summarization API"
+            "Integration documentation"
           ],
           "risks": [
             {
               "risk": "External API instability or rate limits",
-              "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests."
+              "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests"
             }
           ]
         },
@@ -213,25 +345,61 @@
           "priority": "P2",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they persistence layer with valid inputs",
+              "then": "the data is persisted and can be retrieved"
+            },
+            {
+              "given": "a user attempts to persistence layer",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Implement the persistence layer for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              },
+              {
+                "name": "repository_persists_and_reads_back",
+                "description": "Repository/DAO writes and reads back consistent state."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nImplement the persistence layer for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they persistence layer with valid inputs\nThen the data is persisted and can be retrieved\n- Given a user attempts to persistence layer\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "Database schema",
-            "Data access code"
+            "Database schema"
           ],
-          "risks": []
+          "risks": [
+            {
+              "risk": "Large file handling / storage costs",
+              "mitigation": "Set size limits, stream uploads, virus scan, lifecycle policies"
+            }
+          ]
         }
       ],
-      "estimate_days": 3.0,
-      "risks": []
+      "estimate_days": 6.0,
+      "risks": [
+        {
+          "risk": "Concurrency/hotspot contention",
+          "mitigation": "Idempotency, locks or queues, load tests"
+        }
+      ]
     },
     {
       "name": "Testing",
-      "goal": "Ensure the application works as intended.",
+      "goal": "Ensure the tool works as expected through various test cases.",
       "tasks": [
         {
           "id": "T8",
@@ -245,49 +413,113 @@
           "priority": "P2",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they functional tests (happy paths) with valid inputs",
+              "then": "the API responds with 2xx and a correct payload"
+            },
+            {
+              "given": "a user attempts to functional tests (happy paths)",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Write functional tests for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "api_contract_and_status_codes",
+                "description": "Endpoint returns expected 2xx/4xx and OpenAPI contract fields."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nConduct functional tests for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they functional tests (happy paths) with valid inputs\nThen the API responds with 2xx and a correct payload\n- Given a user attempts to functional tests (happy paths)\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "Test cases",
-            "Automated tests"
+            "Test cases"
           ],
-          "risks": []
+          "risks": [
+            {
+              "risk": "Ambiguities/assumptions",
+              "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
+            }
+          ]
         },
         {
           "id": "T9",
           "title": "Error & edge-case tests",
           "description": "Cover invalid inputs, timeouts, and permission errors.",
           "estimate_days": 1.0,
-          "complexity": "M",
+          "complexity": "S",
           "dependencies": [
             "T8"
           ],
           "priority": "P2",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a logged-in user is on the relevant screen or context",
+              "when": "they error & edge-case tests with valid inputs",
+              "then": "the expected result is shown"
+            },
+            {
+              "given": "a user attempts to error & edge-case tests",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
+            },
+            {
+              "given": "a user without the required role/permissions",
+              "when": "they attempt to error & edge-case tests",
+              "then": "access is denied and an appropriate message is shown"
             }
           ],
-          "prompt_for_code_assistant": "Write error and edge-case tests for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "authz_enforced",
+                "description": "Unauthorized users cannot perform the action; authorized can."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nConduct error and edge-case tests for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a logged-in user is on the relevant screen or context\nWhen they error & edge-case tests with valid inputs\nThen the expected result is shown\n- Given a user attempts to error & edge-case tests\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted\n- Given a user without the required role/permissions\nWhen they attempt to error & edge-case tests\nThen access is denied and an appropriate message is shown.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "Test cases for edge cases",
-            "Automated tests"
+            "Test cases"
           ],
-          "risks": []
+          "risks": [
+            {
+              "risk": "Ambiguities/assumptions",
+              "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
+            }
+          ]
         }
       ],
       "estimate_days": 2.0,
-      "risks": []
+      "risks": [
+        {
+          "risk": "Ambiguities/assumptions",
+          "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
+        }
+      ]
     },
     {
       "name": "Documentation",
-      "goal": "Provide clear documentation for users and developers.",
+      "goal": "Provide clear documentation for the tool.",
       "tasks": [
         {
           "id": "T10",
@@ -301,40 +533,72 @@
           "priority": "P2",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they docs & handoff with valid inputs",
+              "then": "the expected result is shown"
+            },
+            {
+              "given": "a user attempts to docs & handoff",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "Create documentation for the meeting recording summary tool.",
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "### Goal\nCreate documentation for the meeting recording summary tool.\n\n### Context\nTech: N/A\n\n### Acceptance criteria\n- Given a user is on the relevant screen or context\nWhen they docs & handoff with valid inputs\nThen the expected result is shown\n- Given a user attempts to docs & handoff\nWhen the input is missing required field or invalid format\nThen the operation is rejected with a clear error and nothing is persisted.\n\n### Done when\nAll acceptance criteria are satisfied.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
           "deliverables": [
-            "README file",
-            "Setup instructions"
+            "README file"
           ],
-          "risks": []
+          "risks": [
+            {
+              "risk": "Ambiguities/assumptions",
+              "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
+            }
+          ]
         }
       ],
       "estimate_days": 1.0,
-      "risks": []
+      "risks": [
+        {
+          "risk": "Ambiguities/assumptions",
+          "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
+        }
+      ]
     }
   ],
-  "total_estimate_days": 10.0,
+  "total_estimate_days": 11.0,
   "risks_and_mitigations": [
     {
       "risk": "External API instability or rate limits",
-      "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests."
+      "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests"
     },
     {
       "risk": "Concurrency/hotspot contention",
-      "mitigation": "Idempotency, locks or queues, load tests."
+      "mitigation": "Idempotency, locks or queues, load tests"
     },
     {
       "risk": "Large file handling / storage costs",
-      "mitigation": "Set size limits, stream uploads, virus scan, lifecycle policies."
+      "mitigation": "Set size limits, stream uploads, virus scan, lifecycle policies"
     },
     {
       "risk": "Ambiguities/assumptions",
-      "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders."
+      "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders"
     }
   ],
   "deliverables": [

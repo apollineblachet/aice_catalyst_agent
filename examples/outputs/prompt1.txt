@@ -1,4 +1,4 @@
-Here's the structured development plan for the "Customer Feedback Inbox" project, including features, tasks, complexity estimates, dependencies, acceptance criteria, and prompts for code assistants.
+Here's a structured development plan for the "Customer Feedback Inbox" project, including features, tasks, estimates, dependencies, and acceptance criteria.
 
 ```json
 {
@@ -13,273 +13,136 @@ Here's the structured development plan for the "Customer Feedback Inbox" project
           "estimated_days": [2.7, 4.0],
           "tasks": [
             {
-              "id": "T1",
-              "title": "Clarify scope & constraints",
-              "description": "Confirm must-haves, non-goals, and edge cases; note unknowns & risks.",
-              "dependencies": [],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nClarify scope & constraints. Confirm must-haves, non-goals, and edge cases; note unknowns & risks.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
               "id": "T2",
               "title": "Data model / schema sketch",
               "description": "Identify entities, fields, and minimal schema changes needed.",
-              "dependencies": ["T1"],
+              "depends_on": [],
               "acceptance_criteria": [
-                "Given the user is on the form with all required fields filled correctly, when they click Submit, then the system persists the data and shows a visible success state without page reload.",
-                "Given a required field is empty or exceeds its max length, when the user attempts to submit, then the system blocks submission and shows inline, accessible error messages describing what to fix.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given the UI is navigated using only a keyboard and a screen reader, when the user traverses fields and triggers the primary action, then focus order is logical, labels are announced, and success/error states are conveyed.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nData model / schema sketch. Identify entities, fields, and minimal schema changes needed.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the form with all required fields filled correctly, when they click Submit, then the system persists the data and shows a visible success state without page reload.\n- Given a required field is empty or exceeds its max length, when the user attempts to submit, then the system blocks submission and shows inline, accessible error messages describing what to fix.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given the UI is navigated using only a keyboard and a screen reader, when the user traverses fields and triggers the primary action, then focus order is logical, labels are announced, and success/error states are conveyed.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a user is on the relevant screen or context, when they data model / schema sketch with valid inputs, then the expected result is shown.",
+                "Given a user attempts to data model / schema sketch, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
+              ]
+            },
+            {
+              "id": "T1",
+              "title": "Clarify scope & constraints",
+              "description": "Confirm must-haves, non-goals, and edge cases; note unknowns & risks.",
+              "depends_on": ["T2"],
+              "acceptance_criteria": [
+                "Given a user is on the relevant screen or context, when they clarify scope & constraints with valid inputs, then the expected result is shown.",
+                "Given a user attempts to clarify scope & constraints, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
+              ]
             },
             {
               "id": "T3",
               "title": "Backend API surface",
               "description": "Define endpoints, request/response contracts, and validation rules.",
-              "dependencies": ["T2"],
+              "depends_on": ["T2"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nBackend API surface. Define endpoints, request/response contracts, and validation rules.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a user is on the relevant screen or context, when they backend API surface with valid inputs, then the API responds with 2xx and a correct payload.",
+                "Given a user attempts to backend API surface, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
+              ]
             },
             {
               "id": "T4",
               "title": "Frontend UI skeleton",
               "description": "Create minimal UI flow and states (loading, success, error).",
-              "dependencies": ["T3"],
+              "depends_on": ["T1"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nFrontend UI skeleton. Create minimal UI flow and states (loading, success, error).\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T5",
-              "title": "Integrations & external services",
-              "description": "Wire any external APIs, keys, and error handling paths.",
-              "dependencies": ["T4"],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nIntegrations & external services. Wire any external APIs, keys, and error handling paths.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T6",
-              "title": "Persistence layer",
-              "description": "Implement DB access patterns and migrations if any.",
-              "dependencies": ["T5"],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nPersistence layer. Implement DB access patterns and migrations if any.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T7",
-              "title": "Functional tests (happy paths)",
-              "description": "Automate the main success scenarios end-to-end or via API.",
-              "dependencies": ["T6"],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nFunctional tests (happy paths). Automate the main success scenarios end-to-end or via API.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T8",
-              "title": "Error & edge-case tests",
-              "description": "Cover invalid inputs, timeouts, and permission errors.",
-              "dependencies": ["T7"],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nError & edge-case tests. Cover invalid inputs, timeouts, and permission errors.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T9",
-              "title": "Docs & handoff",
-              "description": "Write a concise README with setup, env vars, run & test commands.",
-              "dependencies": ["T8"],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nDocs & handoff. Write a concise README with setup, env vars, run & test commands.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            }
-          ]
-        },
-        {
-          "title": "Triage View",
-          "complexity": "Medium",
-          "estimated_days": [2.7, 4.0],
-          "tasks": [
-            {
-              "id": "T1",
-              "title": "Clarify scope & constraints",
-              "description": "Confirm must-haves, non-goals, and edge cases; note unknowns & risks.",
-              "dependencies": [],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nClarify scope & constraints. Confirm must-haves, non-goals, and edge cases; note unknowns & risks.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T2",
-              "title": "Data model / schema sketch",
-              "description": "Identify entities, fields, and minimal schema changes needed.",
-              "dependencies": ["T1"],
-              "acceptance_criteria": [
-                "Given the user is on the form with all required fields filled correctly, when they click Submit, then the system persists the data and shows a visible success state without page reload.",
-                "Given a required field is empty or exceeds its max length, when the user attempts to submit, then the system blocks submission and shows inline, accessible error messages describing what to fix.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given the UI is navigated using only a keyboard and a screen reader, when the user traverses fields and triggers the primary action, then focus order is logical, labels are announced, and success/error states are conveyed.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nData model / schema sketch. Identify entities, fields, and minimal schema changes needed.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the form with all required fields filled correctly, when they click Submit, then the system persists the data and shows a visible success state without page reload.\n- Given a required field is empty or exceeds its max length, when the user attempts to submit, then the system blocks submission and shows inline, accessible error messages describing what to fix.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given the UI is navigated using only a keyboard and a screen reader, when the user traverses fields and triggers the primary action, then focus order is logical, labels are announced, and success/error states are conveyed.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T3",
-              "title": "Backend API surface",
-              "description": "Define endpoints, request/response contracts, and validation rules.",
-              "dependencies": ["T2"],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nBackend API surface. Define endpoints, request/response contracts, and validation rules.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
-            },
-            {
-              "id": "T4",
-              "title": "Frontend UI skeleton",
-              "description": "Create minimal UI flow and states (loading, success, error).",
-              "dependencies": ["T3"],
-              "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nFrontend UI skeleton. Create minimal UI flow and states (loading, success, error).\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a user is on the relevant screen or context, when they frontend UI skeleton with valid inputs, then the UI reflects the change with a success indicator.",
+                "Given a user attempts to frontend UI skeleton, when the input is missing required field or invalid format, then an accessible inline error is displayed and no changes are saved."
+              ]
             },
             {
               "id": "T5",
               "title": "Authorization & roles",
               "description": "Enforce who can access/modify; add guards and permission checks.",
-              "dependencies": ["T4"],
+              "depends_on": ["T2"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nAuthorization & roles. Enforce who can access/modify; add guards and permission checks.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a logged-in user is on the relevant screen or context, when they authorization & roles with valid inputs, then the expected result is shown.",
+                "Given a user without the required role/permissions, when they attempt to authorization & roles, then access is denied and an appropriate message is shown."
+              ]
             },
             {
               "id": "T6",
-              "title": "Performance checks",
-              "description": "Add basic timing, concurrency tests, and guardrails for target SLAs.",
-              "dependencies": ["T5"],
+              "title": "Integrations & external services",
+              "description": "Wire any external APIs, keys, and error handling paths.",
+              "depends_on": ["T2"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nPerformance checks. Add basic timing, concurrency tests, and guardrails for target SLAs.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a user is on the relevant screen or context, when they integrations & external services with valid inputs, then the API responds with 2xx and a correct payload.",
+                "Given a user attempts to integrations & external services, when the input is missing required field or invalid format, then the operation is rejected with a clear error and nothing is persisted."
+              ]
             },
             {
               "id": "T7",
-              "title": "Accessibility pass",
-              "description": "Ensure keyboard navigation, aria labels, and color contrast basics.",
-              "dependencies": ["T6"],
+              "title": "Persistence layer",
+              "description": "Implement DB access patterns and migrations if any.",
+              "depends_on": ["T2"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nAccessibility pass. Ensure keyboard navigation, aria labels, and color contrast basics.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a user is on the relevant screen or context, when they persistence layer with valid inputs, then the data is persisted and can be retrieved.",
+                "Given the database is available, when a user persistence layer, then the change is committed and can be read back consistently."
+              ]
             },
             {
               "id": "T8",
               "title": "Functional tests (happy paths)",
               "description": "Automate the main success scenarios end-to-end or via API.",
-              "dependencies": ["T7"],
+              "depends_on": ["T4"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nFunctional tests (happy paths). Automate the main success scenarios end-to-end or via API.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a user is on the relevant screen or context, when they functional tests (happy paths) with valid inputs, then the API responds with 2xx and a correct payload."
+              ]
             },
             {
               "id": "T9",
               "title": "Error & edge-case tests",
               "description": "Cover invalid inputs, timeouts, and permission errors.",
-              "dependencies": ["T8"],
+              "depends_on": ["T4", "T8"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nError & edge-case tests. Cover invalid inputs, timeouts, and permission errors.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a logged-in user is on the relevant screen or context, when they error & edge-case tests with valid inputs, then the expected result is shown."
+              ]
             },
             {
               "id": "T10",
               "title": "Docs & handoff",
               "description": "Write a concise README with setup, env vars, run & test commands.",
-              "dependencies": ["T9"],
+              "depends_on": ["T8"],
               "acceptance_criteria": [
-                "Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.",
-                "Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.",
-                "Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.",
-                "Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes."
-              ],
-              "prompt": "### Goal\nDocs & handoff. Write a concise README with setup, env vars, run & test commands.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests."
+                "Given a user is on the relevant screen or context, when they docs & handoff with valid inputs, then the expected result is shown."
+              ]
+            },
+            {
+              "id": "T5-2",
+              "title": "Analytics & logging events",
+              "description": "Emit events for key user actions and important failures.",
+              "depends_on": ["T10"],
+              "acceptance_criteria": [
+                "Given analytics is enabled, when a user analytics & logging events, then a single analytics event is emitted with correct schema and no PII."
+              ]
+            },
+            {
+              "id": "T5-3",
+              "title": "Accessibility pass",
+              "description": "Ensure keyboard navigation, aria labels, and color contrast basics.",
+              "depends_on": ["T2"],
+              "acceptance_criteria": [
+                "Given a user is on the relevant screen or context, when they accessibility pass with valid inputs, then the expected result is shown."
+              ]
             }
           ]
         }
       ]
     }
   ],
-  "totals": {
-    "estimated_days": {
-      "min": 20.4,
-      "max": 30.0
-    }
+  "total_estimated_days": {
+    "min": 15.3,
+    "max": 23.6
   }
 }
 ```
 
-This JSON structure provides a comprehensive overview of the project, including the features, tasks, complexity estimates, dependencies, acceptance criteria, and prompts for code assistants. Each task is clearly defined with its dependencies and acceptance criteria, ensuring a smooth development process.
+### Summary
+- **Total Estimated Days**: 15.3 to 23.6 days.
+- **Key Features**: Feedback widget, Triage view, Data storage, Accessibility, and Performance.
+- **Acceptance Criteria**: Each task has clear acceptance criteria to ensure successful implementation.
+- **Dependencies**: Tasks are organized with dependencies to ensure a logical flow of development. 
+
+This plan provides a clear roadmap for the development of the "Customer Feedback Inbox" feature in your SaaS dashboard.

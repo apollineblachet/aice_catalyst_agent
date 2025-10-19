@@ -14,7 +14,6 @@ The agent reads a short project requirement and outputs:
 - Developer prompts for AI code assistants  
 
 It uses LangGraph’s `create_react_agent` to coordinate reasoning and tool use through a ReAct-style workflow.
-
 ---
 
 ## Implemented Tools

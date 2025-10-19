@@ -1,7 +1,7 @@
 {
-  "objective": "Develop a Minimal Customer Feedback Inbox for a SaaS dashboard.",
+  "objective": "Develop a minimal Customer Feedback Inbox for a SaaS dashboard to capture and triage user feedback.",
   "assumptions": [
-    "The existing web app is built using React, Node/Express, and Postgres.",
+    "The existing web app is built with React, Node/Express, and Postgres.",
     "The development team is familiar with the tech stack."
   ],
   "unknowns_or_questions": [
@@ -10,7 +10,7 @@
   "phases": [
     {
       "name": "Feature Development",
-      "goal": "Implement the Feedback Widget and Triage View.",
+      "goal": "Implement the feedback widget and triage view.",
       "tasks": [
         {
           "id": "T1",
@@ -22,36 +22,42 @@
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they clarify scope & constraints with valid inputs",
+              "then": "the expected result is shown"
             },
             {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user attempts to clarify scope & constraints",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nClarify scope & constraints. Confirm must-haves, non-goals, and edge cases; note unknowns & risks.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Create a function to clarify scope and constraints based on user input.",
+          "deliverables": [
+            "Documented scope and constraints"
+          ],
           "risks": [
             {
-              "risk": "Authorization gaps",
-              "mitigation": "Centralize checks; add negative tests for non-privileged users"
-            },
-            {
-              "risk": "Data migration or schema mismatch",
-              "mitigation": "Write reversible migrations; migrate in phases; add DB constraints"
+              "risk": "Misunderstanding of requirements",
+              "mitigation": "Regular check-ins with stakeholders"
             }
           ]
         },
@@ -61,259 +67,399 @@
           "description": "Identify entities, fields, and minimal schema changes needed.",
           "estimate_days": 1.0,
           "complexity": "S",
-          "dependencies": [
-            "T1"
-          ],
+          "dependencies": [],
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user is on the form with all required fields filled correctly",
-              "when": "they click Submit",
-              "then": "the system persists the data and shows a visible success state without page reload"
+              "given": "a user is on the relevant screen or context",
+              "when": "they data model / schema sketch with valid inputs",
+              "then": "the expected result is shown"
             },
             {
-              "given": "a required field is empty or exceeds its max length",
-              "when": "the user attempts to submit",
-              "then": "the system blocks submission and shows inline, accessible error messages describing what to fix"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "the UI is navigated using only a keyboard and a screen reader",
-              "when": "the user traverses fields and triggers the primary action",
-              "then": "focus order is logical, labels are announced, and success/error states are conveyed"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user attempts to data model / schema sketch",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nData model / schema sketch. Identify entities, fields, and minimal schema changes needed.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the form with all required fields filled correctly, when they click Submit, then the system persists the data and shows a visible success state without page reload.\n- Given a required field is empty or exceeds its max length, when the user attempts to submit, then the system blocks submission and shows inline, accessible error messages describing what to fix.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given the UI is navigated using only a keyboard and a screen reader, when the user traverses fields and triggers the primary action, then focus order is logical, labels are announced, and success/error states are conveyed.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Design a simple database schema for feedback submissions.",
+          "deliverables": [
+            "Schema design document"
+          ],
+          "risks": [
+            {
+              "risk": "Schema changes may affect existing data",
+              "mitigation": "Perform migrations carefully and test thoroughly"
+            }
+          ]
         },
         {
           "id": "T3",
           "title": "Backend API surface",
           "description": "Define endpoints, request/response contracts, and validation rules.",
           "estimate_days": 1.0,
-          "complexity": "S",
+          "complexity": "M",
           "dependencies": [
             "T2"
           ],
           "priority": "P0",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they backend API surface with valid inputs",
+              "then": "the API responds with 2xx and a correct payload"
             },
             {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user attempts to backend API surface",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nBackend API surface. Define endpoints, request/response contracts, and validation rules.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "api_contract_and_status_codes",
+                "description": "Endpoint returns expected 2xx/4xx and OpenAPI contract fields."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Implement the backend API endpoints for feedback submission.",
+          "deliverables": [
+            "API documentation"
+          ],
+          "risks": [
+            {
+              "risk": "API may not handle edge cases",
+              "mitigation": "Thoroughly test all endpoints"
+            }
+          ]
         },
         {
           "id": "T4",
           "title": "Frontend UI skeleton",
           "description": "Create minimal UI flow and states (loading, success, error).",
           "estimate_days": 1.0,
-          "complexity": "S",
+          "complexity": "M",
           "dependencies": [
-            "T3"
+            "T1"
           ],
-          "priority": "P0",
+          "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they frontend UI skeleton with valid inputs",
+              "then": "the UI reflects the change with a success indicator"
             },
             {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user attempts to frontend UI skeleton",
+              "when": "the input is missing required field or invalid format",
+              "then": "an accessible inline error is displayed and no changes are saved"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nFrontend UI skeleton. Create minimal UI flow and states (loading, success, error).\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "ui_end_to_end_happy_path",
+                "description": "From user action to persisted state and refreshed UI."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Create a React component for the feedback submission form.",
+          "deliverables": [
+            "UI component code"
+          ],
+          "risks": [
+            {
+              "risk": "UI may not be responsive",
+              "mitigation": "Test on multiple devices"
+            }
+          ]
         },
         {
           "id": "T5",
-          "title": "Integrations & external services",
-          "description": "Wire any external APIs, keys, and error handling paths.",
+          "title": "Authorization & roles",
+          "description": "Enforce who can access/modify; add guards and permission checks.",
           "estimate_days": 1.0,
-          "complexity": "S",
+          "complexity": "M",
           "dependencies": [
-            "T4"
+            "T2"
           ],
-          "priority": "P0",
+          "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a logged-in user is on the relevant screen or context",
+              "when": "they authorization & roles with valid inputs",
+              "then": "the expected result is shown"
             },
             {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user without the required role/permissions",
+              "when": "they attempt to authorization & roles",
+              "then": "access is denied and an appropriate message is shown"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nIntegrations & external services. Wire any external APIs, keys, and error handling paths.\n\n### Context\nTech: React + Node/Express + Postgres\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "authz_enforced",
+                "description": "Unauthorized users cannot perform the action; authorized can."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Implement role-based access control for the feedback features.",
+          "deliverables": [
+            "Access control implementation"
+          ],
+          "risks": [
+            {
+              "risk": "Authorization gaps",
+              "mitigation": "Centralize checks; add negative tests for non-privileged users"
+            }
+          ]
         },
         {
           "id": "T6",
-          "title": "Persistence layer",
-          "description": "Implement DB access patterns and migrations if any.",
+          "title": "Integrations & external services",
+          "description": "Wire any external APIs, keys, and error handling paths.",
           "estimate_days": 1.0,
-          "complexity": "S",
+          "complexity": "M",
           "dependencies": [
-            "T5"
+            "T2"
           ],
-          "priority": "P0",
+          "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they integrations & external services with valid inputs",
+              "then": "the API responds with 2xx and a correct payload"
             },
             {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user attempts to integrations & external services",
+              "when": "the input is missing required field or invalid format",
+              "then": "the operation is rejected with a clear error and nothing is persisted"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nPersistence layer. Implement DB access patterns and migrations if any.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "api_contract_and_status_codes",
+                "description": "Endpoint returns expected 2xx/4xx and OpenAPI contract fields."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Integrate with existing logging and analytics services.",
+          "deliverables": [
+            "Integration code"
+          ],
+          "risks": [
+            {
+              "risk": "Integration failures",
+              "mitigation": "Thoroughly test all integrations"
+            }
+          ]
         },
         {
           "id": "T7",
-          "title": "Functional tests (happy paths)",
-          "description": "Automate the main success scenarios end-to-end or via API.",
+          "title": "Persistence layer",
+          "description": "Implement DB access patterns and migrations if any.",
           "estimate_days": 1.0,
-          "complexity": "S",
+          "complexity": "M",
           "dependencies": [
-            "T6"
+            "T2"
           ],
-          "priority": "P0",
+          "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
+              "given": "a user is on the relevant screen or context",
+              "when": "they persistence layer with valid inputs",
+              "then": "the data is persisted and can be retrieved"
             },
             {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "the database is available",
+              "when": "a user persistence layer",
+              "then": "the change is committed and can be read back consistently"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nFunctional tests (happy paths). Automate the main success scenarios end-to-end or via API.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Implement the database access layer for feedback submissions.",
+          "deliverables": [
+            "Database access code"
+          ],
+          "risks": [
+            {
+              "risk": "Data migration or schema mismatch",
+              "mitigation": "Write reversible migrations; migrate in phases; add DB constraints"
+            }
+          ]
         },
         {
           "id": "T8",
-          "title": "Error & edge-case tests",
-          "description": "Cover invalid inputs, timeouts, and permission errors.",
+          "title": "Functional tests (happy paths)",
+          "description": "Automate the main success scenarios end-to-end or via API.",
           "estimate_days": 1.0,
-          "complexity": "S",
+          "complexity": "M",
           "dependencies": [
-            "T7"
+            "T4"
           ],
-          "priority": "P0",
+          "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
-            },
-            {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user is on the relevant screen or context",
+              "when": "they functional tests (happy paths) with valid inputs",
+              "then": "the API responds with 2xx and a correct payload"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nError & edge-case tests. Cover invalid inputs, timeouts, and permission errors.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "api_contract_and_status_codes",
+                "description": "Endpoint returns expected 2xx/4xx and OpenAPI contract fields."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Write functional tests for the feedback submission process.",
+          "deliverables": [
+            "Test scripts"
+          ],
+          "risks": [
+            {
+              "risk": "Tests may not cover all scenarios",
+              "mitigation": "Review test coverage regularly"
+            }
+          ]
         },
         {
           "id": "T9",
+          "title": "Error & edge-case tests",
+          "description": "Cover invalid inputs, timeouts, and permission errors.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T4",
+            "T8"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "a logged-in user is on the relevant screen or context",
+              "when": "they error & edge-case tests with valid inputs",
+              "then": "the expected result is shown"
+            }
+          ],
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "authz_enforced",
+                "description": "Unauthorized users cannot perform the action; authorized can."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Implement tests for edge cases and error handling.",
+          "deliverables": [
+            "Test scripts"
+          ],
+          "risks": [
+            {
+              "risk": "Edge cases may be missed",
+              "mitigation": "Conduct thorough testing and code reviews"
+            }
+          ]
+        },
+        {
+          "id": "T10",
           "title": "Docs & handoff",
           "description": "Write a concise README with setup, env vars, run & test commands.",
           "estimate_days": 1.0,
@@ -321,35 +467,45 @@
           "dependencies": [
             "T8"
           ],
-          "priority": "P0",
+          "priority": "P1",
           "acceptance_criteria": [
             {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
-            },
-            {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+              "given": "a user is on the relevant screen or context",
+              "when": "they docs & handoff with valid inputs",
+              "then": "the expected result is shown"
             }
           ],
-          "prompt_for_code_assistant": "### Goal\nDocs & handoff. Write a concise README with setup, env vars, run & test commands.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
+          "test_suite": {
+            "unit_tests": [
+              {
+                "name": "success_path_renders_or_returns_expected",
+                "description": "Valid inputs produce the correct view or API payload."
+              },
+              {
+                "name": "validation_errors_block_commit",
+                "description": "Invalid inputs surface clear errors and do not persist changes."
+              }
+            ],
+            "integration_tests": [
+              {
+                "name": "end_to_end_smoke",
+                "description": "Primary flow works across boundaries (API/DB/UI) if applicable."
+              }
+            ]
+          },
+          "prompt_for_code_assistant": "Create a README template for the project.",
+          "deliverables": [
+            "README file"
+          ],
+          "risks": [
+            {
+              "risk": "Documentation may be incomplete",
+              "mitigation": "Review documentation with team members"
+            }
+          ]
         }
       ],
-      "estimate_days": 9.0,
+      "estimate_days": 10.0,
       "risks": [
         {
           "risk": "Authorization gaps",
@@ -360,125 +516,9 @@
           "mitigation": "Write reversible migrations; migrate in phases; add DB constraints"
         }
       ]
-    },
-    {
-      "name": "Testing & Documentation",
-      "goal": "Ensure all features are tested and documented.",
-      "tasks": [
-        {
-          "id": "T1",
-          "title": "Functional tests (happy paths)",
-          "description": "Automate the main success scenarios end-to-end or via API.",
-          "estimate_days": 1.0,
-          "complexity": "S",
-          "dependencies": [
-            "T6"
-          ],
-          "priority": "P0",
-          "acceptance_criteria": [
-            {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
-            },
-            {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
-            }
-          ],
-          "prompt_for_code_assistant": "### Goal\nFunctional tests (happy paths). Automate the main success scenarios end-to-end or via API.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
-        },
-        {
-          "id": "T2",
-          "title": "Error & edge-case tests",
-          "description": "Cover invalid inputs, timeouts, and permission errors.",
-          "estimate_days": 1.0,
-          "complexity": "S",
-          "dependencies": [
-            "T1"
-          ],
-          "priority": "P0",
-          "acceptance_criteria": [
-            {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
-            },
-            {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
-            }
-          ],
-          "prompt_for_code_assistant": "### Goal\nError & edge-case tests. Cover invalid inputs, timeouts, and permission errors.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
-        },
-        {
-          "id": "T3",
-          "title": "Docs & handoff",
-          "description": "Write a concise README with setup, env vars, run & test commands.",
-          "estimate_days": 1.0,
-          "complexity": "S",
-          "dependencies": [
-            "T2"
-          ],
-          "priority": "P0",
-          "acceptance_criteria": [
-            {
-              "given": "the user is on the relevant screen and prerequisites are met",
-              "when": "they perform the primary action",
-              "then": "the system completes the action and presents a clear confirmation"
-            },
-            {
-              "given": "an input parameter is missing or malformed",
-              "when": "the user triggers the action",
-              "then": "the system returns a validation error without side effects"
-            },
-            {
-              "given": "a dependent service is unavailable",
-              "when": "the user initiates the action",
-              "then": "the system shows a non-destructive error state and logs the incident"
-            },
-            {
-              "given": "two users modify the same item concurrently",
-              "when": "the second save occurs",
-              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
-            }
-          ],
-          "prompt_for_code_assistant": "### Goal\nDocs & handoff. Write a concise README with setup, env vars, run & test commands.\n\n### Acceptance criteria\n- Given the user is on the relevant screen and prerequisites are met, when they perform the primary action, then the system completes the action and presents a clear confirmation.\n- Given an input parameter is missing or malformed, when the user triggers the action, then the system returns a validation error without side effects.\n- Given a dependent service is unavailable, when the user initiates the action, then the system shows a non-destructive error state and logs the incident.\n- Given two users modify the same item concurrently, when the second save occurs, then the system prevents silent overwrites and prompts the user to reconcile changes.\n\n### Done when\nAll acceptance criteria satisfied; tests & lints pass.\n\n### Assistant instructions\n- Make minimal, focused changes; follow existing conventions.\n- Explain risky changes briefly in comments near the diff.\n- Output: patch/diff and updated files; include any new tests.",
-          "deliverables": [],
-          "risks": []
-        }
-      ],
-      "estimate_days": 3.0,
-      "risks": []
     }
   ],
-  "total_estimate_days": 12.0,
+  "total_estimate_days": 10.0,
   "risks_and_mitigations": [
     {
       "risk": "Authorization gaps",
@@ -490,9 +530,11 @@
     }
   ],
   "deliverables": [
-    "Feedback widget integrated into the app.",
-    "Triage view for internal staff.",
-    "Unit tests for critical paths.",
-    "README documentation."
+    "Feedback widget",
+    "Triage view",
+    "Database schema",
+    "API documentation",
+    "Test scripts",
+    "README file"
   ]
 }
