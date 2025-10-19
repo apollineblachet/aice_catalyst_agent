@@ -1,0 +1,14 @@
+# Ignore Python virtual environment
+.venv/
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore Python bytecode cache
+__pycache__/
+
+# Ignore MLflow experiment tracking data
+mlruns/
+
+# Ignore your script file
+api.sh
