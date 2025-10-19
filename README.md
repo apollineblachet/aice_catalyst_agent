@@ -1,7 +1,7 @@
 # AICE Catalyst Agent Challenge
 
 This project implements an **AI planning agent** that transforms unstructured business requirements into a **structured, phased development plan**.  
-Built for the *AICE Catalyst Agent Challenge*, it demonstrates how an autonomous LangGraph workflow can extract structure, estimate effort, define acceptance criteria, and generate concise prompts for code assistants like GitHub Copilot or Claude.
+Built for the AICE Catalyst Agent Challenge, it demonstrates how a LangGraph ReAct-style agent can extract structure, estimate effort, define acceptance criteria, and generate concise prompts for code assistants like GitHub Copilot or Claude.
 
 ---
 
@@ -10,7 +10,7 @@ Built for the *AICE Catalyst Agent Challenge*, it demonstrates how an autonomous
 The agent reads a short project requirement and outputs:
 - Phases, tasks, and dependencies  
 - Complexity estimates and risks  
-- Acceptance criteria (Given/When/Then format)  
+- Acceptance criteria (Given/When/Then format + proposed test suite)  
 - Developer prompts for AI code assistants  
 
 It uses LangGraph’s `create_react_agent` to coordinate reasoning and tool use through a ReAct-style workflow.
@@ -24,7 +24,7 @@ It uses LangGraph’s `create_react_agent` to coordinate reasoning and tool use 
 | `parse_requirements_tool` | Extracts project features, constraints, and goals. |
 | `estimate_complexity_tool` | Labels complexity, estimates effort, and lists risks. |
 | `generate_tasks_tool` | Breaks features into granular tasks. |
-| `create_acceptance_criteria_tool` | Generates testable acceptance criteria. |
+| `create_acceptance_criteria_tool` | Generates testable acceptance criteria and a suite of proposed unit and integration tests per task.. |
 | `generate_prompt_for_copilot_tool` | Creates concise developer prompts. |
 | `detect_dependencies_tool` | Identifies task dependencies. |
 
