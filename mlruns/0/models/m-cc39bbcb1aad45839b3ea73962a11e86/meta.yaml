@@ -1,0 +1,11 @@
+artifact_location: file:///Users/macbook2023/Desktop/AICE%20Catalyst%20Agent%20Challenge/aice_catalyst_agent/mlruns/0/models/m-cc39bbcb1aad45839b3ea73962a11e86/artifacts
+creation_timestamp: 1760796326195
+experiment_id: '0'
+last_updated_timestamp: 1760796326195
+lifecycle_stage: active
+model_id: m-cc39bbcb1aad45839b3ea73962a11e86
+model_type: null
+name: model
+source_run_id: 9bb8405df14847d58698aa66b851c5d4
+status: 1
+status_message: null

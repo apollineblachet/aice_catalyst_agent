@@ -1,0 +1,6 @@
+mlflow==3.5.0
+cloudpickle==3.1.1
+langchain-openai==0.3.35
+langchain==0.3.27
+langgraph==1.0.0
+pandas==2.3.3

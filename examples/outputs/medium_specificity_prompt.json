@@ -1,0 +1,314 @@
+{
+  "objective": "Develop a Meeting Summarization Tool that converts recorded meetings into readable summaries.",
+  "assumptions": [
+    "Users have access to audio or video files of meetings.",
+    "External transcription service (Whisper) is reliable and available."
+  ],
+  "unknowns_or_questions": [
+    "Missing timeline or deadline.",
+    "Unclear auth/authorization requirements.",
+    "Data storage/DB choice unspecified.",
+    "Success criteria not explicitly stated."
+  ],
+  "phases": [
+    {
+      "name": "Planning",
+      "goal": "Define project scope and requirements.",
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Clarify scope & constraints",
+          "description": "Confirm must-haves, non-goals, and edge cases; note unknowns & risks.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [],
+          "priority": "P0",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Confirm must-haves, non-goals, and edge cases for the Meeting Summarization Tool.",
+          "deliverables": [
+            "Scope document",
+            "Risk assessment"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T2",
+          "title": "Data model / schema sketch",
+          "description": "Identify entities, fields, and minimal schema changes needed.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T1"
+          ],
+          "priority": "P0",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the form with all required fields filled correctly",
+              "when": "they click Submit",
+              "then": "the system persists the data and shows a visible success state without page reload"
+            }
+          ],
+          "prompt_for_code_assistant": "Sketch the data model and schema for the Meeting Summarization Tool.",
+          "deliverables": [
+            "Data model diagram",
+            "Schema definition"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 2.0,
+      "risks": []
+    },
+    {
+      "name": "Development",
+      "goal": "Build the backend and frontend components.",
+      "tasks": [
+        {
+          "id": "T3",
+          "title": "Backend API surface",
+          "description": "Define endpoints, request/response contracts, and validation rules.",
+          "estimate_days": 2.0,
+          "complexity": "M",
+          "dependencies": [
+            "T2"
+          ],
+          "priority": "P0",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Define the backend API surface for the Meeting Summarization Tool.",
+          "deliverables": [
+            "API documentation",
+            "Endpoint definitions"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T4",
+          "title": "Frontend UI skeleton",
+          "description": "Create minimal UI flow and states (loading, success, error).",
+          "estimate_days": 2.0,
+          "complexity": "M",
+          "dependencies": [
+            "T3"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Create the frontend UI skeleton for the Meeting Summarization Tool.",
+          "deliverables": [
+            "UI mockups",
+            "Component structure"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T5",
+          "title": "File handling & validation",
+          "description": "Accept and validate allowed file types, size limits, and safe temp storage.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T4"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the upload screen with a valid file selected",
+              "when": "they start the upload",
+              "then": "the system stores the file, returns a success confirmation, and shows the new entry in the list"
+            }
+          ],
+          "prompt_for_code_assistant": "Implement file handling and validation for the Meeting Summarization Tool.",
+          "deliverables": [
+            "File upload component",
+            "Validation logic"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T6",
+          "title": "Integrations & external services",
+          "description": "Wire any external APIs, keys, and error handling paths.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T5"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Integrate external services for transcription in the Meeting Summarization Tool.",
+          "deliverables": [
+            "Integration code",
+            "Error handling logic"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T7",
+          "title": "Persistence layer",
+          "description": "Implement DB access patterns and migrations if any.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T6"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Implement the persistence layer for the Meeting Summarization Tool.",
+          "deliverables": [
+            "Database schema",
+            "Migration scripts"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 7.0,
+      "risks": []
+    },
+    {
+      "name": "Testing",
+      "goal": "Ensure functionality and reliability through testing.",
+      "tasks": [
+        {
+          "id": "T8",
+          "title": "Functional tests (happy paths)",
+          "description": "Automate the main success scenarios end-to-end or via API.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T7"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Write functional tests for the Meeting Summarization Tool.",
+          "deliverables": [
+            "Test cases",
+            "Automated test scripts"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T9",
+          "title": "Error & edge-case tests",
+          "description": "Cover invalid inputs, timeouts, and permission errors.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T8"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "an input parameter is missing or malformed",
+              "when": "the user triggers the action",
+              "then": "the system returns a validation error without side effects"
+            }
+          ],
+          "prompt_for_code_assistant": "Write error and edge-case tests for the Meeting Summarization Tool.",
+          "deliverables": [
+            "Test cases",
+            "Automated test scripts"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 2.0,
+      "risks": []
+    },
+    {
+      "name": "Documentation",
+      "goal": "Provide clear documentation for users and developers.",
+      "tasks": [
+        {
+          "id": "T10",
+          "title": "Docs & handoff",
+          "description": "Write a concise README with setup, env vars, run & test commands.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T9"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Create documentation for the Meeting Summarization Tool.",
+          "deliverables": [
+            "README file",
+            "Setup instructions"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 1.0,
+      "risks": []
+    }
+  ],
+  "total_estimate_days": 12.0,
+  "risks_and_mitigations": [
+    {
+      "risk": "External API instability or rate limits",
+      "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests."
+    },
+    {
+      "risk": "Data migration or schema mismatch",
+      "mitigation": "Write reversible migrations; migrate in phases; add DB constraints."
+    },
+    {
+      "risk": "Concurrency/hotspot contention",
+      "mitigation": "Idempotency, locks or queues, load tests."
+    },
+    {
+      "risk": "Large file handling / storage costs",
+      "mitigation": "Set size limits, stream uploads, virus scan, lifecycle policies."
+    },
+    {
+      "risk": "Ambiguities/assumptions",
+      "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders."
+    }
+  ],
+  "deliverables": [
+    "Meeting Summarization Tool",
+    "User documentation",
+    "API documentation",
+    "Test cases"
+  ]
+}

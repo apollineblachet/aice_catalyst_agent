@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/macbook2023/Desktop/AICE%20Catalyst%20Agent%20Challenge/aice_catalyst_agent/mlruns/0/a3a64609986a42b5b7590fb7b2b8e3ce/artifacts
+end_time: 1760798204984
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a3a64609986a42b5b7590fb7b2b8e3ce
+run_name: agent_langchain_flavor
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760797881179
+status: 3
+tags: []
+user_id: macbook2023

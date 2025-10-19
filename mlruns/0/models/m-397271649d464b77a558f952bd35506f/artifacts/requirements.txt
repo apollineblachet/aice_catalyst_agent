@@ -1,0 +1,4 @@
+mlflow==3.5.0
+cloudpickle==3.1.1
+langchain==0.3.27
+pydantic==2.12.3

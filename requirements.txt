@@ -1,0 +1,6 @@
+mlflow>=2.15
+langchain>=0.2.16
+langchain-core>=0.3.23,<0.4
+langchain-openai>=0.2.0
+langgraph>=0.2.70
+pydantic>=2.3

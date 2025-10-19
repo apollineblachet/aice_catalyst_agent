@@ -1,0 +1,345 @@
+{
+  "objective": "Develop a meeting recording summary tool that transcribes conversations and highlights important points or next steps.",
+  "assumptions": [
+    "Users have access to a web browser.",
+    "Users can upload audio files in supported formats."
+  ],
+  "unknowns_or_questions": [
+    "Missing timeline or deadline.",
+    "Unclear auth/authorization requirements.",
+    "Data storage/DB choice unspecified.",
+    "Success criteria not explicitly stated."
+  ],
+  "phases": [
+    {
+      "name": "Planning",
+      "goal": "Define project scope and requirements.",
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Clarify scope & constraints",
+          "description": "Confirm must-haves, non-goals, and edge cases; note unknowns & risks.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [],
+          "priority": "P0",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            },
+            {
+              "given": "an input parameter is missing or malformed",
+              "when": "the user triggers the action",
+              "then": "the system returns a validation error without side effects"
+            },
+            {
+              "given": "a dependent service is unavailable",
+              "when": "the user initiates the action",
+              "then": "the system shows a non-destructive error state and logs the incident"
+            },
+            {
+              "given": "two users modify the same item concurrently",
+              "when": "the second save occurs",
+              "then": "the system prevents silent overwrites and prompts the user to reconcile changes"
+            }
+          ],
+          "prompt_for_code_assistant": "Clarify project scope and constraints for the meeting recording summary tool.",
+          "deliverables": [
+            "Scope document",
+            "Risk assessment"
+          ],
+          "risks": [
+            {
+              "risk": "Ambiguities/assumptions",
+              "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders."
+            }
+          ]
+        }
+      ],
+      "estimate_days": 1.0,
+      "risks": []
+    },
+    {
+      "name": "Design",
+      "goal": "Create the architecture and design for the application.",
+      "tasks": [
+        {
+          "id": "T2",
+          "title": "Data model / schema sketch",
+          "description": "Identify entities, fields, and minimal schema changes needed.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T1"
+          ],
+          "priority": "P0",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the form with all required fields filled correctly",
+              "when": "they click Submit",
+              "then": "the system persists the data and shows a visible success state without page reload"
+            },
+            {
+              "given": "a required field is empty or exceeds its max length",
+              "when": "the user attempts to submit",
+              "then": "the system blocks submission and shows inline, accessible error messages describing what to fix"
+            }
+          ],
+          "prompt_for_code_assistant": "Design the data model and schema for the meeting recording summary tool.",
+          "deliverables": [
+            "Data model diagram",
+            "Schema definition"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T3",
+          "title": "Backend API surface",
+          "description": "Define endpoints, request/response contracts, and validation rules.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T2"
+          ],
+          "priority": "P0",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Define the backend API surface for the meeting recording summary tool.",
+          "deliverables": [
+            "API documentation"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T4",
+          "title": "Frontend UI skeleton",
+          "description": "Create minimal UI flow and states (loading, success, error).",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T3"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Create the frontend UI skeleton for the meeting recording summary tool.",
+          "deliverables": [
+            "UI mockups",
+            "Frontend code"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 3.0,
+      "risks": []
+    },
+    {
+      "name": "Development",
+      "goal": "Implement the application features.",
+      "tasks": [
+        {
+          "id": "T5",
+          "title": "File handling & validation",
+          "description": "Accept and validate allowed file types, size limits, and safe temp storage.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T4"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the upload screen with a valid file selected",
+              "when": "they start the upload",
+              "then": "the system stores the file, returns a success confirmation, and shows the new entry in the list"
+            }
+          ],
+          "prompt_for_code_assistant": "Implement file handling and validation for the meeting recording summary tool.",
+          "deliverables": [
+            "File upload functionality"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T6",
+          "title": "Integrations & external services",
+          "description": "Wire any external APIs, keys, and error handling paths.",
+          "estimate_days": 1.0,
+          "complexity": "L",
+          "dependencies": [
+            "T5"
+          ],
+          "priority": "P1",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Integrate external services for transcription and summarization.",
+          "deliverables": [
+            "Integration with transcription service",
+            "Integration with summarization API"
+          ],
+          "risks": [
+            {
+              "risk": "External API instability or rate limits",
+              "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests."
+            }
+          ]
+        },
+        {
+          "id": "T7",
+          "title": "Persistence layer",
+          "description": "Implement DB access patterns and migrations if any.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T6"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Implement the persistence layer for the meeting recording summary tool.",
+          "deliverables": [
+            "Database schema",
+            "Data access code"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 3.0,
+      "risks": []
+    },
+    {
+      "name": "Testing",
+      "goal": "Ensure the application works as intended.",
+      "tasks": [
+        {
+          "id": "T8",
+          "title": "Functional tests (happy paths)",
+          "description": "Automate the main success scenarios end-to-end or via API.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T7"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Write functional tests for the meeting recording summary tool.",
+          "deliverables": [
+            "Test cases",
+            "Automated tests"
+          ],
+          "risks": []
+        },
+        {
+          "id": "T9",
+          "title": "Error & edge-case tests",
+          "description": "Cover invalid inputs, timeouts, and permission errors.",
+          "estimate_days": 1.0,
+          "complexity": "M",
+          "dependencies": [
+            "T8"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Write error and edge-case tests for the meeting recording summary tool.",
+          "deliverables": [
+            "Test cases for edge cases",
+            "Automated tests"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 2.0,
+      "risks": []
+    },
+    {
+      "name": "Documentation",
+      "goal": "Provide clear documentation for users and developers.",
+      "tasks": [
+        {
+          "id": "T10",
+          "title": "Docs & handoff",
+          "description": "Write a concise README with setup, env vars, run & test commands.",
+          "estimate_days": 1.0,
+          "complexity": "S",
+          "dependencies": [
+            "T9"
+          ],
+          "priority": "P2",
+          "acceptance_criteria": [
+            {
+              "given": "the user is on the relevant screen and prerequisites are met",
+              "when": "they perform the primary action",
+              "then": "the system completes the action and presents a clear confirmation"
+            }
+          ],
+          "prompt_for_code_assistant": "Create documentation for the meeting recording summary tool.",
+          "deliverables": [
+            "README file",
+            "Setup instructions"
+          ],
+          "risks": []
+        }
+      ],
+      "estimate_days": 1.0,
+      "risks": []
+    }
+  ],
+  "total_estimate_days": 10.0,
+  "risks_and_mitigations": [
+    {
+      "risk": "External API instability or rate limits",
+      "mitigation": "Add retries/backoff, circuit breakers, and sandbox keys; mock in tests."
+    },
+    {
+      "risk": "Concurrency/hotspot contention",
+      "mitigation": "Idempotency, locks or queues, load tests."
+    },
+    {
+      "risk": "Large file handling / storage costs",
+      "mitigation": "Set size limits, stream uploads, virus scan, lifecycle policies."
+    },
+    {
+      "risk": "Ambiguities/assumptions",
+      "mitigation": "Time-box discovery; document assumptions; confirm with stakeholders."
+    }
+  ],
+  "deliverables": [
+    "Meeting recording summary tool",
+    "Documentation",
+    "Test cases"
+  ]
+}
