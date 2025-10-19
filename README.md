@@ -13,7 +13,7 @@ The agent reads a short project requirement and outputs:
 - Acceptance criteria (Given/When/Then format)  
 - Developer prompts for AI code assistants  
 
-It uses **LangGraph** with a small, deterministic workflow and a set of **custom tools**.
+It uses LangGraph’s `create_react_agent` to coordinate reasoning and tool use through a ReAct-style workflow.
 
 ---
 
